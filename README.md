@@ -15,4 +15,12 @@ Check out docs.txt for Documentation
     !   --ends multiplication temp
     >   --records temp in output and creates new temp
 
-# For Examples go to examples.txt
+# Examples
+    Code:  ++++++++++|++++++++++!>
+    Output:  d
+    Explanation:  10*10 = 100,  ASCII "d" = 100
+
+    Code:  ++++++++|++++++++++!+++++++++>+++++++|++++++++++!+++++++++>
+    Output:  YO
+    Explanation:  8*10+9=89, 7*10+9=79,  ASCII "Y" = 89,  ASCII "O" = 79
+
