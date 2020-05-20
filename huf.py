@@ -1,38 +1,57 @@
+def error(loc, clause):
+    if clause == 'M#':
+        print(f"At MARK_>{loc}< Missing '#'")
+    elif clause == "US":
+        print(f"At MARK_>{loc}< Unrecognized symbol")
+
+
 def interpret(code):
     code = str(code)
-    out = ''
-    tempchr = 0
-    multchar = 0
+    outchr = ''
+    temp = 0
+    mult_temp = 0
     loc = -1
-    closeout = False
+    print_ = False
     multiplying = False
     for sighn in code:
         loc+=1
         if not multiplying:
             if sighn == '+':
-                tempchr +=1
+                temp +=1
             elif sighn == ">":
-                multchar = 0
-                out += chr(tempchr)
-                tempchr = 0
+                if print_:
+                    outchr += chr(temp)
+                mult_temp = 0
+                temp = 0
             elif sighn == "|":
-                multchar = 0
+                mult_temp = 0
                 multiplying = True
+            elif sighn == "#":
+                print_ = True
+            elif sighn == "@":
+                if print_:
+                    print(outchr)
+                else:
+                    error(loc, "M#")
+                print_ = False
+                outchr = ''
+
             else:
-                return f"Whats going on here?  MARK_>{loc}<"
+                error(loc, "US")
         else:
             if sighn == '+':
-                multchar += 1
+                mult_temp += 1
             elif sighn == "!":
-                tempchr *= multchar
-                multchar = 0
+                temp *= mult_temp
+                mult_temp = 0
                 multiplying = False
-    return out
 
-data = ''
+
+
 with open(input("Name Of File: "), 'r') as file:
     data = file.read().replace('\n', '')
-print(interpret(data))
+interpret(data)
+
 
 
 
