@@ -10,6 +10,9 @@ Check out docs.txt for Documentation
     You can stretch each temp into its own row
 
 # How to run .huf programs
+    --online:
+    --[![Run on Repl.it](https://repl.it/badge/github/Charmaster16/huf)](https://repl.it/github/Charmaster16/huf)
+    --offline:
     --go to chosen text editor and create new file
     --make the extension on this file .huf
     --put your .huf in the same folder as the interpreter (huf.py)
