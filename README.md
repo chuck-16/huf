@@ -18,7 +18,7 @@ Check out docs.txt for Documentation
       --Then type your file name in when prompted
       
       --online:
-      --just use run or edit HelloWorld.huf  
+      --just use run or edit HelloWorld.huf on repl.it:
 [![Run on Repl.it](https://repl.it/badge/github/Charmaster16/huf)](https://repl.it/github/Charmaster16/huf)
 
       
