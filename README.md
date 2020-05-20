@@ -8,6 +8,7 @@ Check out docs.txt for Documentation
     Each temp is adds up to be one number
     Use multiple temps in a row to use functionlity
     You can stretch each temp into its own row
+    Using print statments converts temp to a ASCII value
 
 # How to run .huf programs
     --offline:
