@@ -35,7 +35,8 @@ def interpret(code):
                     error(loc, "M#")
                 print_ = False
                 outchr = ''
-
+            elif sighn == "I":
+                temp = ord(str(input())[0])
             else:
                 error(loc, "US")
         else:
