@@ -1,61 +1,41 @@
-def error(loc, clause):
-    if clause == 'M#':
-        print(f"At MARK_>{loc}< Missing '#'")
-    elif clause == "US":
-        print(f"At MARK_>{loc}< Unrecognized symbol")
+import itertools
+import sys
+import re
+
+
+def error(pointer, clause):
+    err_dict = {
+        'M#': "Missing '#'", 'US': 'Unrecognized symbol'
+    }
+    if clause in err_dict:
+        print(f"At MARK_>{pointer}< {err_dict[clause]}")
 
 
 def interpret(code):
-    code = str(code)
-    outchr = ''
-    temp = 0
-    mult_temp = 0
-    loc = -1
-    print_ = False
-    multiplying = False
-    for sighn in code:
-        loc+=1
-        if not multiplying:
-            if sighn == '+':
-                temp +=1
-            elif sighn == ">":
-                if print_:
-                    outchr += chr(temp)
-                mult_temp = 0
-                temp = 0
-            elif sighn == "|":
-                mult_temp = 0
-                multiplying = True
-            elif sighn == "#":
-                print_ = True
-            elif sighn == "@":
-                if print_:
-                    print(outchr)
-                else:
-                    error(loc, "M#")
-                print_ = False
-                outchr = ''
-
+    pointer = temp = 0
+    output = False
+    while pointer < len(code):
+        sym = code[pointer]
+        if sym in ['#', '@']:
+            output = sym == '#'
+        elif sym == '>':
+            if output:
+                print(chr(temp), end='')
             else:
-                error(loc, "US")
-        else:
-            if sighn == '+':
-                mult_temp += 1
-            elif sighn == "!":
-                temp *= mult_temp
-                mult_temp = 0
-                multiplying = False
+                error(pointer, "M#")
+            temp = 0
+        elif sym == '|':
+            num = code[pointer + 1]
+            if isinstance(num, int):
+                temp *= num
+                pointer += 1
+        elif isinstance(sym, int):
+            temp += sym
+        pointer += 1
 
 
-
-with open(input("Name Of File: "), 'r') as file:
-    data = file.read().replace('\n', '')
-interpret(data)
-
-
-
-
-
-
-
-
+with open(sys.argv[1]) as file:
+    data = re.sub(r'[^\+|!>#@]', '', file.read())
+    data = [''.join(g) for _, g in itertools.groupby(data)]
+    data = [len(k) if k[0] == '+' else k for k in data]
+    interpret(data)
